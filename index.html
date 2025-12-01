@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Which Shape Represent Your Team Spirit Most?</title>
+    <meta charset="utf-8">
+    <style>
+        body {font-family: Montserrat, bold; text-align:center; background:#ffffff; padding:20px; margin:0;}
+        h1 {color:#ee4d2d; margin-bottom:30px;}
+        select, button {padding:15px 20px; font-size:18px; margin:10px; border-radius:12px; border:none; background:#1a73e8; color:white; cursor:pointer;}
+        .images {display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:30px; margin:50px auto; max-width:1600px;}
+        .box {border:6px solid #ddd; border-radius:20px; overflow:hidden; cursor:pointer; transition:0.3s; background:white; box-shadow:0 10px 30px rgba(0,0,0,0.15);}
+        .box:hover {border-color:#ee4d2d; transform:scale(1.08);}
+        .box img {width:100%; height:200px; object-fit:cover;}
+        .label {padding:15px; background:#ee4d2d; color:white; font-weight:bold; font-size:17px;}
+        .taken {border-color:#113366 !important; opacity:0.8;}
+        .taken .label {background:#113366;}
+        .msg {font-size:30px; padding:30px; background:#113366; color:white; border-radius:18px; margin:40px;}
+        #admin {margin:80px; font-size:26px;}
+        #admin a {color:#1a73e8; text-decoration:none; font-weight:bold;}
+    </style>
+</head>
+<body>
+
+<h1>Team Image Selection 2025</h1>
+
+<div id="step1">
+    <strong>Choose your team</strong><br><br>
+    <select id="team" onchange="pickTeam()">
+        <option value="">-- Select Team --</option>
+        <option>BD</option>
+        <option>CP</option>
+        <option>Driver</option>
+        <option>Ops</option>
+        <option>People</option>
+        <option>Product</option>
+        <option>S&P - Budget & Merchant</option>
+        <option>S&P - Demand</option>
+        <option>S&P - Platform Health</option>m
+    </select>
+</div>
+
+<div id="step2" style="display:none">
+    <p><strong><span id="teamName"></span> — Click one shape</strong></p>
+    <div class="images" id="grid"></div>
+    <button onclick="location.reload()">Change Team</button>
+</div>
+
+<div id="msg"></div>
+
+<div id="admin">
+    <a href="#" onclick="showResults();return false;">Owner: Click here to see all choices</a>
+</div>
+
+<script>
+// Your exact 19 shape names — works with .jpg, .png, .gif, .webp automatically
+const shapeNames = [
+    "ARROW","CIRCLE","CRESCENT","CROSS","HEART","HEXAGON","OVAL",
+    "PENTAGON","PIE","RECTANGLE","STAR","SQUARE",
+    "SPIRAL","RIGHT TRIANGLE","RHOMBUS"
+];
+
+// Build full paths (image/ARROW.jpg, image/CIRCLE.png, etc.)
+const imageFiles = shapeNames.map(name => `image/${name}`);
+
+const teams = ["S&P - Budget & Merchant","S&P - Demand","S&P - Platform Health","BD","CP","Driver","Ops","Product","People"];
+let choices = JSON.parse(localStorage.getItem("choices2025")) || {};
+
+function pickTeam() {
+    const team = document.getElementById("team").value;
+    if (!team) return;
+    if (choices[team]) { alert("This team already picked a shape!"); return; }
+    
+    document.getElementById("step1").style.display = "none";
+    document.getElementById("step2").style.display = "block";
+    document.getElementById("teamName").textContent = team;
+    loadImages();
+}
+
+function loadImages() {
+    const grid = document.getElementById("grid");
+    grid.innerHTML = "";
+    
+    imageFiles.forEach(file => {
+        const displayName = file.split('/').pop(); // shows ARROW, CIRCLE, etc.
+        const takenBy = Object.keys(choices).find(t => choices[t] === file);
+        
+        const box = document.createElement("div");
+        box.className = "box" + (takenBy ? " taken" : "");
+        box.innerHTML = `
+            <img src="${file}.jpg" onerror="this.src='${file}.png'" onerror="this.src='${file}.gif'" onerror="this.src='${file}.webp'">
+            <div class="label">${takenBy ? "Taken by "+takenBy : displayName}</div>
+        `;
+        if (!takenBy) box.onclick = () => selectImage(teamName.textContent, file);
+        grid.appendChild(box);
+    });
+}
+
+function selectImage(team, file) {
+    choices[team] = file;
+    localStorage.setItem("choices2025", JSON.stringify(choices));
+    document.getElementById("msg").innerHTML = `<div class="msg">YES!<br>${team}<br>selected<br><strong>${file.split('/').pop()}</strong></div>`;
+    setTimeout(() => location.reload(), 3000);
+}
+
+function showResults() {
+    let text = "SHAPE SELECTIONS 2025\n\n";
+    teams.forEach(t => text += `${t}\n→ ${choices[t] ? choices[t].split('/').pop() : "Not chosen"}\n\n`);
+    alert(text || "No one has chosen yet");
+}
+</script>
+</body>
+</html>
