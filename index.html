@@ -4,60 +4,64 @@
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
  <title>Team Shape Selection 2025</title>
- <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
  <style>
   *{box-sizing:border-box}
-  body{font-family:'Montserrat',sans-serif;margin:0;padding:20px;background:#f8f9ff;text-align:center;position:relative}
-  h1{color:#ee4d2d;font-weight:900;font-size:2.4rem;margin:40px 0}
-  select,button{padding:16px 20px;font-size:1.1rem;border-radius:14px;border:none;background:#1a73e8;color:white;font-weight:700;width:90%;max-width:340px}
-  @media(max-width:480px){h1{font-size:2rem}}
+  body{font-family:'Montserrat',sans-serif;margin:0;padding:20px;background:#f8f9ff;text-align:center;overflow-x:hidden}
+  h1{
+   font-size:2.7rem;font-weight:900;color:transparent;
+   background:linear-gradient(90deg,#ee4d2d,#ff6b6b,#ee4d2d);
+   background-size:200%;-webkit-background-clip:text;background-clip:text;
+   animation:sh 5s linear infinite;margin:40px 0 50px;letter-spacing:2px
+  }
+  @keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-  .images{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:25px;margin:50px auto;padding:0 10px}
-  @media(max-width:640px){.images{grid-template-columns:1fr 1fr}}
-  @media(max-width:480px){.images{grid-template-columns:1fr}}
+  select{
+   padding:18px;font-size:1.2rem;border-radius:16px;border:none;background:#1a73e8;color:#fff;
+   font-weight:700;width:90%;max-width:360px;margin:20px auto;display:block
+  }
 
-  .box{border:6px solid #ddd;border-radius:20px;overflow:hidden;background:white;box-shadow:0 12px 35px rgba(0,0,0,.15);transition:.3s;cursor:pointer}
+  .images{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:25px;margin:60px auto}
+  .box{
+   border:6px solid #ddd;border-radius:22px;overflow:hidden;background:#fff;
+   box-shadow:0 12px 35px rgba(0,0,0,.15);transition:.3s;cursor:pointer
+  }
   .box:hover{transform:scale(1.06);border-color:#ee4d2d}
-  .box img{width:100%;height:220px;object-fit:cover}
-  .label{padding:15px;background:#ee4d2d;color:white;font-weight:bold;font-size:1.1rem}
-  .taken{border-color:#113366 !important;opacity:0.7;pointer-events:none}
+  .box img{width:100%;height:230px;object-fit:cover}
+  .label{padding:16px;background:#ee4d2d;color:#fff;font-weight:bold;font-size:1.2rem}
+  .taken{border-color:#113366!important;opacity:0.7;pointer-events:none}
   .taken .label{background:#113366}
 
-  /* PURE WHITE POPUP — EXACTLY LIKE YOUR PHOTO */
   .popup-overlay{
-   position:fixed;inset:0;background:rgba(0,0,0,0.45);backdrop-filter:blur(12px);
-   display:flex;align-items:center;justify-content:center;padding:20px;
-   opacity:0;visibility:hidden;transition:opacity .6s;z-index:9999
+   position:fixed;inset:0;background:#fff;display:flex;align-items:center;justify-content:center;
+   opacity:0;visibility:hidden;transition:opacity .7s;z-index:9999
   }
   .popup{
-   background:#ffffff;border-radius:32px;padding:70px 40px 60px;
-   max-width:460px;width:95%;text-align:center;
-   box-shadow:0 30px 90px rgba(0,0,0,.35);
+   width:95%;max-width:460px;text-align:center;padding:60px 30px
   }
-  .popup h2{font-size:2.8rem;color:#ee4d2d;font-weight:900;margin:0 0 45px;text-shadow:0 4px 15px rgba(238,77,45,.3)}
+  .popup h2{font-size:3rem;color:#ee4d2d;font-weight:900;margin:0 0 45px}
   .popup-shape-img{
-   width:130px;height:130px;border-radius:50%;object-fit:cover;
-   border:8px solid #ee4d2d;margin:30px auto 40px;
-   box-shadow:0 15px 40px rgba(238,77,45,.5)
+   width:140px;height:140px;border-radius:50%;object-fit:cover;
+   border:10px solid #ee4d2d;margin:30px auto 40px;
+   box-shadow:0 20px 50px rgba(238,77,45,.6)
   }
-  .shape-name{font-size:5rem;font-weight:900;color:#ee4d2d;margin:25px 0 15px;letter-spacing:2px}
-  .team-text{font-size:1.8rem;color:#333;margin:25px 0 55px;line-height:1.6}
-  .team-name{color:#ee4d2d;font-weight:900;font-size:2.5rem}
+  .shape-name{font-size:5.2rem;font-weight:900;color:#ee4d2d;margin:20px 0 15px}
+  .team-text{font-size:1.8rem;color:#333;margin:30px 0 60px;line-height:1.6}
+  .team-name{color:#ee4d2d;font-weight:900;font-size:2.6rem}
   .popup button{
-   background:#ee4d2d;color:#fff;padding:20px 110px;font-size:1.8rem;
-   font-weight:700;border-radius:70px;border:none;cursor:pointer;
-   box-shadow:0 20px 50px rgba(238,77,45,.5);transition:.3s
+   background:#ee4d2d;color:#fff;padding:22px 120px;font-size:1.9rem;
+   font-weight:700;border-radius:80px;border:none;cursor:pointer;
+   box-shadow:0 20px 50px rgba(238,77,45,.6)
   }
-  .popup button:hover{transform:scale(1.05)}
  </style>
 </head>
 <body>
 
-<h1>Team Image Selection 2025</h1>
+<h1>Team Shape Selection 2025</h1>
 
 <div id="step1">
- <strong style="font-size:1.4rem">Choose your team</strong><br><br>
+ <strong style="font-size:1.5rem">Choose your team</strong><br><br>
  <select id="team" onchange="pickTeam()">
   <option value="">-- Select Team --</option>
   <option>BD</option><option>CP</option><option>Driver</option>
@@ -68,16 +72,15 @@
 </div>
 
 <div id="step2" style="display:none">
- <p style="font-size:1.4rem;margin:30px 0"><strong><span id="teamName"></span> — Tap your favourite shape</strong></p>
+ <p style="font-size:1.55rem;margin:40px 0"><strong><span id="teamName"></span> — Choose your team shape!</strong></p>
  <div class="images" id="grid"></div>
  <button onclick="location.reload()">Change Team</button>
 </div>
 
-<div id="admin" style="margin:80px 0 30px;font-size:1.4rem">
- <a href="#" onclick="showResults();return false;">Owner: Click here to see all choices</a>
+<div id="admin" style="margin:90px 0 40px;font-size:1.5rem">
+ <a href="#" onclick="showResults();return false;">Owner: View all choices</a>
 </div>
 
-<!-- PURE WHITE POPUP -->
 <div class="popup-overlay" id="popup">
  <div class="popup">
   <h2>Congratulations!</h2>
@@ -98,17 +101,19 @@ const imageFiles = shapeNames.map(n => `image/${n}`);
 const teams = ["S&P - Budget & Merchant","S&P - Demand","S&P - Platform Health","BD","CP","Driver","Ops","Product","People"];
 let choices = JSON.parse(localStorage.getItem("choices2025")) || {};
 
+let currentTeam = "";
+
 function pickTeam() {
- const team = document.getElementById("team").value;
- if (!team) return;
- if (choices[team]) {
-  alert("This team has already chosen a shape!");
+ currentTeam = document.getElementById("team").value;
+ if (!currentTeam) return;
+ if (choices[currentTeam]) {
+  alert("This team already picked a shape!");
   document.getElementById("team").selectedIndex = 0;
   return;
  }
  document.getElementById("step1").style.display = "none";
  document.getElementById("step2").style.display = "block";
- document.getElementById("teamName").textContent = team;
+ document.getElementById("teamName").textContent = currentTeam;
  loadImages();
 }
 
@@ -124,7 +129,7 @@ function loadImages() {
    <img src="${file}.jpg" onerror="this.src='${file}.png'" onerror="this.src='${file}.webp'">
    <div class="label">${taken ? "Taken by "+taken : name}</div>
   `;
-  if (!taken) box.onclick = () => selectImage(teamName.textContent, file, name);
+  if (!taken) box.onclick = () => selectImage(currentTeam, file, name);  // ← FIXED HERE
   grid.appendChild(box);
  });
 }
@@ -134,10 +139,8 @@ function selectImage(team, file, shapeName) {
  choices[team] = file;
  localStorage.setItem("choices2025", JSON.stringify(choices));
 
- // INJECT FRESH IMAGE — ALWAYS WORKS
  document.getElementById("popupImageContainer").innerHTML = `
-  <img class="popup-shape-img"
-       src="${file}.jpg"
+  <img class="popup-shape-img" src="${file}.jpg"
        onerror="this.src='${file}.png'"
        onerror="this.src='${file}.webp'">
  `;
@@ -148,17 +151,12 @@ function selectImage(team, file, shapeName) {
  document.getElementById("popup").style.opacity = "1";
  document.getElementById("popup").style.visibility = "visible";
 
- confetti({
-  particleCount: 350,
-  spread: 110,
-  origin: { y: 0.6 },
-  colors: ['#ee4d2d', '#ff6b6b', '#1a73e8', '#4285f4']
- });
+ confetti({particleCount:400,spread:120,origin:{y:0.55},colors:['#ee4d2d','#ff6b6b','#1a73e8']});
 }
 
 function closePopup() {
  document.getElementById("popup").style.opacity = "0";
- setTimeout(() => location.reload(), 700);
+ setTimeout(() => location.reload(), 800);
 }
 
 function showResults() {
