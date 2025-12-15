@@ -39,7 +39,7 @@
   <option value="">-- Select Team --</option>
   <option>BD</option><option>CP</option><option>Driver</option>
   <option>Ops</option><option>People</option><option>Product</option>
-  <option>S&P - Budget & Merchant</option>
+  <option>S&P - BnP & MS</option>
   <option>S&P - Demand</option><option>S&P - Platform Health</option>
  </select>
 </div>
@@ -102,7 +102,7 @@ async function saveChoice(team, file) {
 const shapeNames = ["ARROW","CIRCLE","CRESCENT","CROSS","HEART","HEXAGON","OVAL","PENTAGON","PIE","RECTANGLE","STAR","SQUARE","SPIRAL","RIGHT TRIANGLE","RHOMBUS"];
 const imageFiles = shapeNames.map(n => `image/${n}`);
 
-const teams = ["S&P - Budget & Merchant","S&P - Demand","S&P - Platform Health","BD","CP","Driver","Ops","Product","People"];
+const teams = ["S&P - BnP & MS","S&P - Demand","S&P - Platform Health","BD","CP","Driver","Ops","Product","People"];
 
 function pickTeam() {
  const team = document.getElementById("team").value;
